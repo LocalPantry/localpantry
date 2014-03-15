@@ -41,6 +41,8 @@
         parser.parse();
 
 
+        debugger;
+        
         arcgisUtils.createMap("be60f2995c294acc9896975a84be8a7d","map").then(function(response){
           //update the app 
           dom.byId("title").innerHTML = response.itemInfo.item.title;
@@ -66,7 +68,9 @@
           legendDijit.startup();
 
 
-        }).error(function(e){console.error(e)});
+        }, function(err){
+          throw err;
+        });
 
 
         });

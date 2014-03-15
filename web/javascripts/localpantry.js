@@ -34,7 +34,10 @@
 	}
 
 	function do_search(keyword, near) {
-		$.getJSON('/javascripts/mock.js', function(results){
+		$.ajax({
+			url: 'http://www.localpantry.co/api/?title=' + keyword,
+			dataType: 'jsonp'
+		}, function(results){
 			
 			if(results && results.listings && results.listings.length) {
 				render_results(results.listings);
@@ -56,8 +59,6 @@
 				.bindPopup(tpl_lp_result_pin(r)));
 
 		});
-
-		console.log(markers);
 
 		var group = new L.featureGroup(markers);
 		setTimeout(function(){

@@ -4,12 +4,18 @@
 	};
 
 	var map,
-		tpl_lp_result = _.template($('#tpl-lp-result').html());
+		tpl_lp_result = _.template($('#tpl-lp-result').html()),
+		tpl_lp_result_pin = _.template($('#tpl-lp-result-pin').html());
 
 	$('#search').submit(function(e){
 		do_search($(this).val());
 		e.preventDefault();
 	});
+
+	var redMarker = L.AwesomeMarkers.icon({
+	    icon: 'glyphicon glyphicon-leaf',
+	    markerColor: 'green'
+	  });
 
 	function render_map() {
 		map = L.map('map').setView([-43.5359033,172.6400246], 10);
@@ -33,17 +39,30 @@
 			if(results && results.listings && results.listings.length) {
 				render_results(results.listings);
 			} else {
-				//do something
+				alert('Sorry, no results :(')
 			}
 		});
 	}
 
 	function render_results(results) {
+		var markers = [];
 		$('.lp-results').empty();
 
 		results.forEach(function(r){
+			console.log(r);
 			$('.lp-results').append(tpl_lp_result(r));
-		})
+
+			markers.push(L.marker(r.location, {icon: redMarker}).addTo(map)
+				.bindPopup(tpl_lp_result_pin(r)));
+
+		});
+
+		console.log(markers);
+
+		var group = new L.featureGroup(markers);
+		setTimeout(function(){
+			map.fitBounds(group.getBounds().pad(0.5));
+		}, 1000);
 	}
 
 	$(function(){

@@ -7,6 +7,7 @@
     <title>Local Pantry - Search</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <link rel="stylesheet" href="/stylesheets/leaflet.awesome-markers.css" />
     <link rel="stylesheet" href="/stylesheets/localpantry.css" />
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -14,6 +15,7 @@
     <![endif]-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpO1Vas9bErU8CIQd2oCmxEsbzuUfuiVw&amp;sensor=false"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+	<script src="/javascripts/leaflet.awesome-markers.min.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-default" role="navigation">
@@ -67,32 +69,22 @@
 			<aside class="col-md-4" id="side">
 				<div class="list-group lp-results">
 					<script id="tpl-lp-result" type="text/template">
-						<a href="{{website.url}}" class="list-group-item active">
+						<a href="{{href}}" class="list-group-item">
 							<img width="96" src="{{image}}" />
 							<h4 class="list-group-item-heading">{{title}}</h4>
-							<p class="list-group-item-text">{{description}}.<br/><em>{{contact}}, {{address.suburb}}</em></p>
+							<p class="list-group-item-text">
+								{{description}}.<br/>
+								<em>{{contact}}, {{address.suburb}}</em>
+							</p>
 						</a>
 					</script>
-					<a href="#" class="list-group-item active">
-						<img width="96" src="/images/thegreengrocer-coxs-orange-apples.jpg" />
-						<h4 class="list-group-item-heading">Apples – Laxton’s Fortune</h4>
-						<p class="list-group-item-text">Firm apple with juicy, creamy white flesh that is sweet, richly flavored and lightly aromatic.<br/><em>Robbies Patch, Springston</em></p>
-					</a>
-					<a href="#" class="list-group-item">
-						<img width="96" src="/images/thegreengrocer-organic-avocado-202x115.jpg" />
-						<h4 class="list-group-item-heading">Avocado</h4>
-						<p class="list-group-item-text">Tasty and super good for you. Direct from the grower.<br/><em>Robbies Patch, Springston</em></p>
-					</a>
-					<a href="#" class="list-group-item">
-						<img width="96" src="/images/thegreengrocer-peaches-black-boy.jpg" />
-						<h4 class="list-group-item-heading">Black Boy Peaches</h4>
-						<p class="list-group-item-text">A kiwi backyard classic, you're not likely to find these little gems at the supermarket.<br/><em>Robbies Patch, Springston</em></p>
-					</a>
-					<a href="#" class="list-group-item">
-						<img width="96" src="/images/thegreengrocer-yen-ben-lemons-202x115.jpg" />
-						<h4 class="list-group-item-heading">Lemons – Yen Ben</h4>
-						<p class="list-group-item-text">Pure lemon taste. Not waxed.<br/><em>Robbies Patch, Springston</em></p>
-					</a>
+					<script id="tpl-lp-result-pin" type="text/template">
+						<div class="lp-result-pin">
+							<img width="60" src="{{image}}" />
+							<p><b>{{title}}</b><br/>from {{contact}}<br/>
+							<a href="{{href}}">View Details</a></p>
+						</div>
+					</script>
 				</div>
 			</aside>
 		</div>
